@@ -2,19 +2,19 @@ package com.pulsehrm.pulsehrmapp.Beans
 
 import com.google.gson.annotations.SerializedName
 
-data class LoginAPI(@SerializedName("Message")
+data class LoginBean(@SerializedName("Message")
                     val message: String = "",
-                    @SerializedName("Schema")
+                     @SerializedName("Schema")
                     val schema: String = "",
-                    @SerializedName("Email ID")
+                     @SerializedName("Email ID")
                     val emailID: String = "",
-                    @SerializedName("Employee Number")
+                     @SerializedName("Employee Number")
                     val employeeNumber: String = "",
-                    @SerializedName("AID LOGIN")
+                     @SerializedName("AID LOGIN")
                     val aidLogin: Int = 0,
-                    @SerializedName("Company Code")
+                     @SerializedName("Company Code")
                     val companyCode: String = "",
-                    @SerializedName("Flag")
+                     @SerializedName("Flag")
                     val flag: Int = 0,
-                    @SerializedName("Punch Flag")
+                     @SerializedName("Punch Flag")
                     val punchFlag: Int = 0)
