@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val username = "PULSE.DMY3@PULSEHRM.COM" //R.id.username.toString()
-        val password = "pulse@123"//R.id.password.toString()
+        val password = "pulse@123" //R.id.password.toString()
 
         signin.setOnClickListener {
             val r = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl("http://123.176.42.94:8084/ords/pulse_dev/").build()
