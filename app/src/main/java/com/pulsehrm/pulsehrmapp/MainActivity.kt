@@ -17,12 +17,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val username = "PULSE.DMY3@PULSEHRM.COM" //R.id.username.toString()
+        val password = "pulse@123"//R.id.password.toString()
 
         signin.setOnClickListener {
             val r = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl("http://123.176.42.94:8084/ords/pulse_dev/").build()
             val api = r.create(LoginAPI::class.java)
 
-            val call = api.doLogin(username.text.toString(),password.text.toString())
+            val call = api.doLogin(username,password)
 
             call.enqueue(object : Callback<LoginBean> {
                 override fun onFailure(call: Call<LoginBean>, t: Throwable) {
@@ -35,11 +37,11 @@ class MainActivity : AppCompatActivity() {
 
                     Toast.makeText(this@MainActivity,"success",Toast.LENGTH_LONG).show()
 
-                    val bean = response.body()
+                     val bean = response.body()
 
-                    val tempList = mutableListOf<String>()
+                     val tempList = mutableListOf<String>()
 
-                    tempList.add("message:"+bean!!.message)
+                     tempList.add("message:"+bean!!.message)
 
                     Toast.makeText(this@MainActivity,bean.message,Toast.LENGTH_LONG).show()
 
