@@ -1,5 +1,6 @@
 package com.pulsehrm.pulsehrmapp
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -17,14 +18,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val username = "PULSE.DMY3@PULSEHRM.COM" //R.id.username.toString()
-        val password = "pulse@123" //R.id.password.toString()
+        var username = "PULSE.DMY2@PULSEHRM.COM" //R.id.username.toString()
+        var password = "pulse@123" //R.id.password.toString()
 
         signin.setOnClickListener {
-            val r = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl("http://123.176.42.94:8084/ords/pulse_dev/").build()
-            val api = r.create(LoginAPI::class.java)
+            var r = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl("http://123.176.42.94:8084/ords/pulse_dev/").build()
+            var api = r.create(LoginAPI::class.java)
 
-            val call = api.doLogin(username,password)
+            var call = api.doLogin(username,password)
 
             call.enqueue(object : Callback<LoginBean> {
                 override fun onFailure(call: Call<LoginBean>, t: Throwable) {
@@ -35,15 +36,23 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onResponse(call: Call<LoginBean>, response: Response<LoginBean>) {
 
-                    Toast.makeText(this@MainActivity,"success",Toast.LENGTH_LONG).show()
+                     var bean = response.body()
 
-                     val bean = response.body()
-
-                     val tempList = mutableListOf<String>()
+                     var tempList = mutableListOf<String>()
 
                      tempList.add("message:"+bean!!.message)
 
-                    Toast.makeText(this@MainActivity,bean.message,Toast.LENGTH_LONG).show()
+                    if (bean.flag == 1){
+
+                        var intent = Intent(this@MainActivity,Bills_Submission::class.java)
+                        startActivity(intent)
+
+                        Toast.makeText(this@MainActivity,bean.message,Toast.LENGTH_LONG).show()
+
+                    }
+                    else
+
+                        Toast.makeText(this@MainActivity,bean.message,Toast.LENGTH_LONG).show()
 
                 }
 
