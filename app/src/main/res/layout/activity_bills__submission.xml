@@ -5,6 +5,114 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/preview"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"/>
 
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/brows"
+        android:text="choose file"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"/>
+
+
+    <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+       <TextView
+           android:layout_width="0dp"
+           android:layout_weight="0.4"
+           android:layout_height="wrap_content"
+           android:text="Bill Date"/>
+
+       <EditText
+           android:layout_width="0dp"
+           android:layout_weight="0.6"
+           android:layout_height="wrap_content"
+           android:id="@+id/billdate"
+           android:inputType="date" />
+
+   </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="0.4"
+            android:layout_height="wrap_content"
+            android:text="Bill Category"/>
+
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_weight="0.6"
+            android:layout_height="wrap_content"
+            android:entries="@array/bill_type"
+            android:id="@+id/billspinner">
+        </Spinner>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="0.4"
+            android:layout_height="wrap_content"
+            android:text="Bill Ammount"/>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="0.6"
+            android:layout_height="wrap_content"
+            android:id="@+id/ammount"
+            android:inputType="numberDecimal"/>
+
+    </LinearLayout>
+
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_marginTop="10dp">
+
+       <TextView
+           android:layout_width="0dp"
+           android:layout_weight="0.4"
+           android:layout_height="wrap_content"
+           android:text="Remarks"/>
+
+       <EditText
+           android:layout_width="0dp"
+           android:layout_weight="0.6"
+           android:layout_height="wrap_content"
+           android:id="@+id/remarks"/>
+
+   </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/upload"
+        android:text="Submit"
+        android:layout_marginTop="10dp"/>
 
 </LinearLayout>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pulse HRM App</string>
+    <string name="app_name">PulseHRM</string>
     <string name="title_activity_home">home</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -7,4 +7,14 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    
+    <string-array name="bill_type">
+        <item>Choose Category</item>
+        <item>FE</item>
+        <item>TB</item>
+        <item>PB</item>
+        <item>LC</item>
+        <item>MISC</item>
+    </string-array>
+
 </resources>
