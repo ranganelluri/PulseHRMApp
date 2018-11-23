@@ -7,7 +7,7 @@ import retrofit2.http.POST
 
 interface LoginAPI {
     @FormUrlEncoded
-    @POST("Mob_Loc_Login/login_page")
+    @POST("Mob_C_Login/login_page")
     fun doLogin(@Field("USERNAME") USERNAME:String,
                 @Field("PASSWORD") PASSWORD:String) :Call<LoginBean>
 }

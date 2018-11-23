@@ -10,11 +10,11 @@
     
     <string-array name="bill_type">
         <item>Choose Category</item>
-        <item>FE</item>
-        <item>TB</item>
-        <item>PB</item>
-        <item>LC</item>
-        <item>MISC</item>
+        <item>Food Expenses</item>
+        <item>Travel Bills</item>
+        <item>Fuel Bills</item>
+        <item>Local Conveyance</item>
+        <item>Miscellaneous</item>
     </string-array>
 
 </resources>

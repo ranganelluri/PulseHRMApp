@@ -1,5 +1,6 @@
 package com.pulsehrm.pulsehrmapp
 
+
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -22,10 +23,11 @@ class MainActivity : AppCompatActivity() {
         var password = "pulse@123" //R.id.password.toString()
 
         signin.setOnClickListener {
-            var r = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl("http://123.176.42.94:8084/ords/pulse_dev/").build()
+            var r = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl("https://app.pulsehrm.com/ords/evam_pulse/").build()
             var api = r.create(LoginAPI::class.java)
 
             var call = api.doLogin(username,password)
+
 
             call.enqueue(object : Callback<LoginBean> {
                 override fun onFailure(call: Call<LoginBean>, t: Throwable) {
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
                      tempList.add("message:"+bean!!.message)
 
-                    if (bean.flag == 1){
+                    if (bean.successFlag.toInt() == 1){
 
                         var intent = Intent(this@MainActivity,Bills_Submission::class.java)
                         startActivity(intent)
