@@ -44,6 +44,13 @@ class MainActivity : AppCompatActivity() {
 
                      tempList.add("message:"+bean!!.message)
 
+                    var i = Intent(this@MainActivity,Bills_Submission::class.java)
+
+                    var bundle = Bundle()
+                    bundle.putString("Emp_No",bean.empNo)
+                    i.putExtras(bundle)
+                    startActivity(i)
+
                     if (bean.successFlag.toInt() == 1){
 
                         var intent = Intent(this@MainActivity,Bills_Submission::class.java)

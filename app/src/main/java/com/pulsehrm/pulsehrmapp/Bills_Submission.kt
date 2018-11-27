@@ -3,30 +3,93 @@ package com.pulsehrm.pulsehrmapp
 import android.Manifest
 import android.annotation.TargetApi
 import android.app.Activity
-import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
+import com.pulsehrm.pulsehrmapp.Beans.BillSubmissionBean
 import kotlinx.android.synthetic.main.activity_bills__submission.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
+
+var mimeType :String = ""
+var contentUri :Uri = Uri.EMPTY
+var requestfile :String =  ""
+var file:File = File(requestfile)
+var mediapath:String =""
 
 
 class Bills_Submission : AppCompatActivity() {
 
     val PERMISSION_REQUEST_CODE = 1001
-    val PICK_IMAGE_REQUEST = 900;
+    val PICK_IMAGE_REQUEST = 900
     lateinit var filePath: Uri
 
     @TargetApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bills__submission)
+
+
+        upload.setOnClickListener {
+
+            var imgfile = File(mediapath)
+
+            var requestBody = RequestBody.create(MediaType.parse("Image/*"),imgfile)
+
+            var fileupload = MultipartBody.Part.createFormData("file", file.name, requestBody)
+
+            var filename:RequestBody = RequestBody.create(MediaType.parse("text/plain"), file.name)
+
+            var r = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl("https://app.pulsehrm.com/ords/evam_pulse/").build()
+
+            var api = r.create(BillSubmissionAPI::class.java)
+
+           var bundle = Intent().extras
+
+           // var emp_no = bundle.getString("Emp_No")
+
+            //var call = api.submitBills("ACMEI111",mimeType,R.id.ammount.toString(),R.id.billspinner.toString(),R.id.billdate.toString(),R.id.remarks.toString(),fileupload,"Bill")
+
+            var call = api.submitBills("ACMEI111","image/png","2300","Fuel Bils","11/27/2018","Bills",fileupload,"Bill")
+
+
+            call.enqueue(object:Callback<BillSubmissionBean> {
+                override fun onFailure(call: Call<BillSubmissionBean>, t: Throwable) {
+                    Toast.makeText(this@Bills_Submission,"Insert Failed",Toast.LENGTH_LONG).show()
+                }
+
+                override fun onResponse(call: Call<BillSubmissionBean>, response: Response<BillSubmissionBean>) {
+                    if (response.isSuccessful){
+                        var bean = response.body()
+                        var templist = mutableListOf<String>()
+                        templist.add("message"+bean!!.message)
+
+                        Toast.makeText(this@Bills_Submission,bean.message,Toast.LENGTH_LONG).show()
+                    }
+
+                    else{
+                        Toast.makeText(this@Bills_Submission,"server error",Toast.LENGTH_LONG).show()
+                    }
+                }
+
+            })
+        }
+
 
         brows.setOnClickListener {
             when {
@@ -40,6 +103,7 @@ class Bills_Submission : AppCompatActivity() {
                 else -> chooseFile()
             }
         }
+
 
         billspinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -85,23 +149,26 @@ class Bills_Submission : AppCompatActivity() {
         when (requestCode) {
             PICK_IMAGE_REQUEST -> {
                 filePath = data!!.data
-                uploadFile()
+
+                 file = File(data.data.path)
+
+                var filepathcolm = Array<String>(5){MediaStore.Images.Media.DATA}
+
+                var cursor = contentResolver.query(filePath,filepathcolm,null,null,null)
+
+                cursor!= null
+                cursor.moveToFirst()
+
+
+                var requestfile = RequestBody.create(MediaType.parse("Image/*"), file)
+
+                 mimeType = contentResolver.getType(filePath)
 
                 var contentUri = data.data
 
                 preview.setImageURI(contentUri)
 
             }
-        }
-    }
-
-    private fun uploadFile() {
-        val progress = ProgressDialog(this).apply {
-            setTitle("Uploading Picture....")
-            setCancelable(false)
-            setCanceledOnTouchOutside(false)
-            show()
-            dismiss()
         }
     }
 }
