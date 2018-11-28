@@ -37,7 +37,7 @@ class Bills_Submission : AppCompatActivity() {
 
     val PERMISSION_REQUEST_CODE = 1001
     val PICK_IMAGE_REQUEST = 900
-    lateinit var filePath: Uri
+    private lateinit var filePath: Uri
 
     @TargetApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -171,4 +171,5 @@ class Bills_Submission : AppCompatActivity() {
             }
         }
     }
+
 }
