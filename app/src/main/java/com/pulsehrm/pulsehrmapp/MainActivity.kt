@@ -19,12 +19,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var username = "PULSE.DMY2@PULSEHRM.COM" //R.id.username.toString()
-        var password = "pulse@123" //R.id.password.toString()
-
         signin.setOnClickListener {
             var r = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl("https://app.pulsehrm.com/ords/evam_pulse/").build()
             var api = r.create(LoginAPI::class.java)
+
+            var username = username.text.toString()
+            var password = password.text.toString()
 
             var call = api.doLogin(username,password)
 
@@ -46,10 +46,11 @@ class MainActivity : AppCompatActivity() {
 
                     var i = Intent(this@MainActivity,Bills_Submission::class.java)
 
-                    var bundle = Bundle()
+
+                  /*  var bundle = Bundle()
                     bundle.putString("Emp_No",bean.empNo)
                     i.putExtras(bundle)
-                    startActivity(i)
+                    startActivity(i)  */
 
                     if (bean.successFlag.toInt() == 1){
 

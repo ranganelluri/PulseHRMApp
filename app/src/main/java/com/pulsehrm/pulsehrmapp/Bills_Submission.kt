@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.AdapterView
@@ -49,9 +48,9 @@ class Bills_Submission : AppCompatActivity() {
 
             var imgfile = File(mediapath)
 
-            var requestBody = RequestBody.create(MediaType.parse("Image/*"),imgfile)
+            var filecontent:RequestBody = RequestBody.create(MediaType.parse("Image/*"),imgfile)
 
-            var fileupload = MultipartBody.Part.createFormData("file", file.name, requestBody)
+            var fileupload = MultipartBody.Part.createFormData("file", file.name, filecontent)
 
             var filename:RequestBody = RequestBody.create(MediaType.parse("text/plain"), file.name)
 
@@ -89,6 +88,7 @@ class Bills_Submission : AppCompatActivity() {
 
             })
         }
+
 
 
         brows.setOnClickListener {
@@ -152,17 +152,9 @@ class Bills_Submission : AppCompatActivity() {
 
                  file = File(data.data.path)
 
-                var filepathcolm = Array<String>(5){MediaStore.Images.Media.DATA}
-
-                var cursor = contentResolver.query(filePath,filepathcolm,null,null,null)
-
-                cursor!= null
-                cursor.moveToFirst()
-
-
                 var requestfile = RequestBody.create(MediaType.parse("Image/*"), file)
 
-                 mimeType = contentResolver.getType(filePath)
+                mimeType = contentResolver.getType(filePath)
 
                 var contentUri = data.data
 
